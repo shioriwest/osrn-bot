@@ -3,11 +3,13 @@ package common;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
+
 public class PropertiesUtils {
 
 	public static final Properties TOKEN = new Properties("token");
 
-	// private static final Logger logger = Logger.getLogger(PropertyUtils.class);
+	private static final Logger logger = Logger.getLogger(PropertiesUtils.class);
 
 	public static String getValue(String key) {
 		return TOKEN.getValue(key);
@@ -31,9 +33,9 @@ public class PropertiesUtils {
 			try {
 				return bundle.getString(key);
 			} catch (Exception e) {
-				// if (logger.isDebugEnabled()) {
-				// logger.debug("", e);
-				// }
+				if (logger.isDebugEnabled()) {
+					logger.debug("", e);
+				}
 				return null;
 			}
 		}
