@@ -18,10 +18,10 @@ import twitter4j.auth.AccessToken;
  */
 public class Base {
 	// おしりんBot用トークン
-	private static final String consumerKey = "oPkGPmoh7no8zlsBSVATlmreM";
-	private static final String consumerSecret = "jAHncHD7ZuaGuIPdyqyW21bdMs6BbxWQjD9K2VBhk44zSChPpe";
-	private static final String accessToken = "1593356700-H3ZOnZOBSpj6shd8IgZqX3Rz1Uj2yb65akvuspo";
-	private static final String accessTokenSecret = "sdMJsovcEpuXdAHFsUwUOSY4QDWtw8G4VtLTilMt6mWkD";
+	private static final String consumerKey = "";
+	private static final String consumerSecret = "";
+	private static final String accessToken = "";
+	private static final String accessTokenSecret = "";
 
 	public static void main(String[] args) {
 		Twitter twitter = new TwitterFactory().getInstance();
