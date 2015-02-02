@@ -5,6 +5,7 @@ import java.util.List;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -35,33 +36,47 @@ public class TweetUtils {
 	}
 
 	/**
-	 * 最新のツイートを取得
+	 * 自身の最新ツイートを取得
 	 */
-	public static String getLastTweet() throws TwitterException {
+	public static Status getLastTweet() throws TwitterException {
 		User user = twitter.verifyCredentials();
 		Status st = user.getStatus();
 
-		return st.getText();
+		return st;
 	}
 
 	/**
-	 * 特定の文字列を含むツイートを検索し、リストで返却。<br>
+	 * 自身のタイムラインを取得
 	 * 
+	 * @throws TwitterException
 	 */
-	public static List<String> searchTweet(String searchWord) throws TwitterException {
+	public static ResponseList<Status> getMyTL() throws TwitterException {
+		ResponseList<Status> homeTl = twitter.getHomeTimeline();
+		return homeTl;
+	}
+
+	/**
+	 * 特定の文字列を含むツイートを検索し、リストで返却。
+	 * 
+	 * @param searchWord
+	 * @return 該当したツイート
+	 * @throws TwitterException
+	 */
+	public static List<Status> searchTweet(String searchWord) throws TwitterException {
 		Query query = new Query(searchWord);
 		QueryResult result = twitter.search(query);
 
-		List<String> tweetList = new ArrayList<String>();
-		for (Status status : result.getTweets()) {
-			String murmur = status.getText() + " @" + status.getUser().getScreenName();
+		List<Status> statusList = new ArrayList<Status>();
+		statusList = result.getTweets();
+
+		for (int i = 0; i < statusList.size(); i++) {
+			String user = statusList.get(i).getUser().getScreenName();
 
 			// Bot自身の発言は排除する。
-			if (murmur.contains("@osrn_bot")) {
-				continue;
+			if (user.equals("osrn_bot")) {
+				statusList.remove(i);
 			}
-			tweetList.add(murmur);
 		}
-		return tweetList;
+		return statusList;
 	}
 }
