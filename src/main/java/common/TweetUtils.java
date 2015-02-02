@@ -36,7 +36,7 @@ public class TweetUtils {
 	}
 
 	/**
-	 * 最新のツイートを取得
+	 * 自身の最新ツイートを取得
 	 */
 	public static Status getLastTweet() throws TwitterException {
 		User user = twitter.verifyCredentials();
@@ -65,19 +65,17 @@ public class TweetUtils {
 	public static List<Status> searchTweet(String searchWord) throws TwitterException {
 		Query query = new Query(searchWord);
 		QueryResult result = twitter.search(query);
-		
+
 		List<Status> statusList = new ArrayList<Status>();
 		statusList = result.getTweets();
-		
-		List<String> tweetList = new ArrayList<String>();
-		for (Status status : result.getTweets()) {
-			String murmur = status.getText() + " @" + status.getUser().getScreenName();
+
+		for (int i = 0; i < statusList.size(); i++) {
+			String user = statusList.get(i).getUser().getScreenName();
 
 			// Bot自身の発言は排除する。
-			if (murmur.contains("@osrn_bot")) {
-				continue;
+			if (user.equals("osrn_bot")) {
+				statusList.remove(i);
 			}
-			tweetList.add(murmur);
 		}
 		return statusList;
 	}
