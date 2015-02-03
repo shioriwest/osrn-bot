@@ -1,1 +1,3 @@
-/bin/
+## project inherent
+src/main/resources/log4j.properties
+src/main/resources/token.properties
