@@ -1,3 +1,8 @@
 ## project inherent
 src/main/resources/log4j.properties
+src/main/resources/token.properties.classpath
+.settings
+bin
+.gradle
+.project
 src/main/resources/token.properties
